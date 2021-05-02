@@ -1,5 +1,5 @@
 # Storage-Efficient-Docker-Registry
-A deduplicated Docker registry that improves storage
+A deduplicated Docker registry that improves storage by implementing file level deduplication on a private Docker registry. The application tackles the increase in image pull time by implementing a popularity based storage and a time based staging storage which improves the pull performance.
 
  The registry contains the scripts for both Client and Server machines to setup and interact with the Docker registry.
 # Server
