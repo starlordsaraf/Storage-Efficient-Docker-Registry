@@ -3,15 +3,15 @@ A deduplicated Docker registry that improves storage by implementing file level 
 
  The registry contains the scripts for both Client and Server machines to setup and interact with the Docker registry.
 # Server
-    a. app.py - Script for only file level deduplicated Docker Regsitry (Basic Implementation)
+    a. app.py - Script for only file level deduplicated Docker Registry (Basic Implementation)
     b. app_pop.py - Script for deduplicated registry with Popularity Based Storage (Intermediate Implementation)
     c. app_staging.py - Script for deduplicated registry with Popularity Based Storage and Time Based Staging Storage (Final most efficient implementation)
 ## To use the storage efficient Docker Registry on a remote server :
-1. Pull this git repo on the server machine and use the Sever folder.
+1. Pull this git repo on the server machine and use the Server folder.
 2. Setup nginx and GUnicorn setup to run the server remotely .
 3. Ensure the machine has TCP port for incoming and outgoing requests at port 80.
 4. Start nginx server using : sudo service nginx start
-5. Start Flask server via Gunicorn for the Final Implemenatation: gunicorn3 --timeout 1000 app_staging:app
+5. Start Flask server via Gunicorn for the Final Implementation: gunicorn3 --timeout 1000 app_staging:app
 6. The version of the application can be run by changing the script name in the gunicorn command.
 
 
