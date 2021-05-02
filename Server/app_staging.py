@@ -19,7 +19,7 @@ ALLOWED_EXTENSIONS = {'tar', 'tar.gz'}
 
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.config['CACHE_FOLDER'] = CACHE_FOLDER
-app.config['MAX_CACHE_SIZE'] = 500
+app.config['MAX_CACHE_SIZE'] = 500  #in bytes
 app.config['CURR_CACHE_SIZE'] = 0
 
 def allowed_file(filename):
@@ -54,7 +54,7 @@ def set_cache(image_name,image_size):
         index = 0
         while(app.config['MAX_CACHE_SIZE']-app.config['CURR_CACHE_SIZE'] < image_size):
             lru_image = cache_sorted[index]
-            print(lru_image+" is evicted from cache")
+            print(lru_image+" is evicted from staging area")
             cache_data.pop(lru_image)
             image_file = app.config['CACHE_FOLDER']+'/'+lru_image+'.tar.gz'
             app.config['CURR_CACHE_SIZE'] -= os.path.getsize(image_file)
@@ -63,13 +63,13 @@ def set_cache(image_name,image_size):
         cache_data[image_name] = str(datetime.datetime.now())
         app.config['CURR_CACHE_SIZE']+=image_size
 
-    print("Current Cache Size: (in bytes)",app.config['CURR_CACHE_SIZE'])
+    print("Current Staging Size Size: (in bytes)",app.config['CURR_CACHE_SIZE'])
     with open("cache.json", "w") as cache_file:
         json.dump(cache_data, cache_file)
     original = app.config['UPLOAD_FOLDER']+'/'+image_name+'.tar.gz'
     target = app.config['CACHE_FOLDER']+'/'+image_name+'.tar.gz'
     shutil.copyfile(original, target)
-    print(image_name +" is set to cache")
+    print(image_name +" is set to staging")
         
 
 
@@ -127,11 +127,11 @@ def pull_image():
 
             #check if image in cache
             if(image_in_cache(image_name)):
-                print(image_name+" is in cache")
+                print(image_name+" is in staging")
                 update_existing_cache(image_name)
                 fileobj = open(app.config['CACHE_FOLDER']+'/'+image_name+'.tar.gz', 'rb')
             else:
-                print(image_name + " is not in cache")
+                print(image_name + " is not in staging")
                 #check if image in uploads
                 if image_name in lst_img:
                     print(image_name + " is popular")
