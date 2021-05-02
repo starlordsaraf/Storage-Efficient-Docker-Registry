@@ -1,7 +1,7 @@
 # Storage-Efficient-Docker-Registry
 A deduplicated Docker registry that improves storage
 
-# The registry contains the scripts for both Client and Server machines to setup and interact with the Docker registry.
+ The registry contains the scripts for both Client and Server machines to setup and interact with the Docker registry.
 ## Server
     a. app.py - Script for only file level deduplicated Docker Regsitry (Basic Implementation)
     b. app_pop.py - Script for deduplicated registry with Popularity Based Storage (Intermediate Implementation)
